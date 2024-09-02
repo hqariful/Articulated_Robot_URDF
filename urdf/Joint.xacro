@@ -1,0 +1,142 @@
+<?xml version="1.0" ?>
+<robot name="Joint" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find Joint_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find Joint_description)/urdf/Joint.trans" />
+<xacro:include filename="$(find Joint_description)/urdf/Joint.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="1.8032835874877323e-17 0.0 0.06801034423940835" rpy="0 0 0"/>
+    <mass value="63.34696069730459"/>
+    <inertia ixx="0.423825" iyy="0.423825" izz="0.556862" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="platform_1">
+  <inertial>
+    <origin xyz="0.0 0.0 0.064606666816059" rpy="0 0 0"/>
+    <mass value="29.28455786408046"/>
+    <inertia ixx="0.176828" iyy="0.127578" izz="0.187811" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.17" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/platform_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.17" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/platform_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rotor_1">
+  <inertial>
+    <origin xyz="1.4995644537752558e-15 -0.00039882243240364453 0.0991232340454346" rpy="0 0 0"/>
+    <mass value="8.60475658980257"/>
+    <inertia ixx="0.092644" iyy="0.090955" izz="0.006297" ixy="0.0" iyz="0.000732" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.295" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/rotor_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.295" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/rotor_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="Roller_1">
+  <inertial>
+    <origin xyz="2.1970392331582062e-08 0.029327728150389816 0.08718971936067588" rpy="0 0 0"/>
+    <mass value="2.2010294506395156"/>
+    <inertia ixx="0.012891" iyy="0.012863" izz="0.000459" ixy="-0.0" iyz="-0.000129" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 0.02 -0.6075" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/Roller_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 0.02 -0.6075" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/Roller_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="EndEffectorConnector_1">
+  <inertial>
+    <origin xyz="2.7077572584804178e-17 -8.673617379884035e-18 0.007721148521307564" rpy="0 0 0"/>
+    <mass value="0.1259950997223672"/>
+    <inertia ixx="1.7e-05" iyy="1.7e-05" izz="1.5e-05" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.01 -0.8375" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/EndEffectorConnector_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.01 -0.8375" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find Joint_description)/meshes/EndEffectorConnector_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolute 1" type="continuous">
+  <origin xyz="0.0 0.0 0.17" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="platform_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+
+<joint name="Revolute 2" type="revolute">
+  <origin xyz="0.0 0.0 0.125" rpy="0 0 0"/>
+  <parent link="platform_1"/>
+  <child link="rotor_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+  <limit upper="2.007129" lower="-2.007129" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 3" type="revolute">
+  <origin xyz="0.0 -0.02 0.3125" rpy="0 0 0"/>
+  <parent link="rotor_1"/>
+  <child link="Roller_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+  <limit upper="1.832596" lower="-1.832596" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 4" type="continuous">
+  <origin xyz="0.0 0.03 0.23" rpy="0 0 0"/>
+  <parent link="Roller_1"/>
+  <child link="EndEffectorConnector_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+
+</robot>
